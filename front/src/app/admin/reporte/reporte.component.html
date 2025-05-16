@@ -1,31 +1,18 @@
-<p-table #dt [value]="products" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+
+<input
+  pInputText
+  type="text"
+  placeholder="Buscar"
+  (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+  style="margin-bottom: 1rem; width: 100%;" />
+
+<p-table #dt [value]="products" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'" [globalFilterFields]="['nombre', 'correo', 'telefono', 'direccion']">
   <ng-template pTemplate="header">
     <tr>
-      <th>
-        Nombre o Empresa
-        <input pInputText type="text" placeholder="Buscar Nombre"
-               (input)="dt.filter($any($event.target).value, 'nombre', 'contains')" />
-      </th>
-      <th>
-        Correo Electrónico
-        <input pInputText type="text" placeholder="Buscar Correo"
-               (input)="dt.filter($any($event.target).value, 'correo', 'contains')" />
-      </th>
-      <th>
-        Teléfono
-        <input
-          pInputText
-          type="text"
-          placeholder="Buscar Teléfono"
-          maxlength="10"
-          (keypress)="onlyNumbers($event)"
-          (input)="dt.filter($any($event.target).value, 'telefono', 'contains')" />
-      </th>
-      <th>
-        Dirección
-        <input pInputText type="text" placeholder="Buscar Dirección"
-               (input)="dt.filter($any($event.target).value, 'direccion', 'contains')" />
-      </th>
+      <th>Nombre o Empresa</th>
+      <th>Correo Electrónico</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
       <th>Descripción del Problema</th>
     </tr>
   </ng-template>
@@ -42,8 +29,7 @@
       </td>
       <td>{{ product.direccion }}</td>
       <td>
-        <button pButton type="button" label="Ver Detalle" (click)="showDialog(product)">
-        </button>
+        <button pButton type="button" label="Ver Detalle" (click)="showDialog(product)"></button>
 
         <p-dialog header="Descripción" [(visible)]="visible" [modal]="true"
                   [style]="{ width: '50rem' }"
