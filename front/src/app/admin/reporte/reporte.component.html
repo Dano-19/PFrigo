@@ -1,0 +1,57 @@
+<p-table #dt [value]="products" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        Nombre o Empresa
+        <input pInputText type="text" placeholder="Buscar Nombre"
+               (input)="dt.filter($any($event.target).value, 'nombre', 'contains')" />
+      </th>
+      <th>
+        Correo Electrónico
+        <input pInputText type="text" placeholder="Buscar Correo"
+               (input)="dt.filter($any($event.target).value, 'correo', 'contains')" />
+      </th>
+      <th>
+        Teléfono
+        <input
+          pInputText
+          type="text"
+          placeholder="Buscar Teléfono"
+          maxlength="10"
+          (keypress)="onlyNumbers($event)"
+          (input)="dt.filter($any($event.target).value, 'telefono', 'contains')" />
+      </th>
+      <th>
+        Dirección
+        <input pInputText type="text" placeholder="Buscar Dirección"
+               (input)="dt.filter($any($event.target).value, 'direccion', 'contains')" />
+      </th>
+      <th>Descripción del Problema</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{ product.nombre }}</td>
+      <td>{{ product.correo }}</td>
+      <td>
+        {{ product.telefono }}
+        <small *ngIf="!isTelefonoValido(product.telefono)" class="p-error d-block">
+          Número inválido (Debe iniciar con 0 y tener 10 dígitos)
+        </small>
+      </td>
+      <td>{{ product.direccion }}</td>
+      <td>
+        <button pButton type="button" label="Ver Detalle" (click)="showDialog(product)">
+        </button>
+
+        <p-dialog header="Descripción" [(visible)]="visible" [modal]="true"
+                  [style]="{ width: '50rem' }"
+                  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+                  [maximizable]="true">
+          <p>{{ selectedProduct?.descripcion }}</p>
+        </p-dialog>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

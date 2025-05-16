@@ -1,0 +1,48 @@
+<div class="card">
+  <h2>Bienvenido, en que podemos ayudarte</h2>
+
+  <form [formGroup]="clienteForm" (ngSubmit)="guardar()">
+    <div class="p-fluid p-formgrid p-grid">
+
+      <div class="p-field p-col-12">
+        <label for="nombre">Nombre o Empresa</label>
+        <input id="nombre" type="text" pInputText formControlName="nombre" />
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="correo">Correo Electrónico</label>
+        <input id="correo" type="email" pInputText formControlName="correo" />
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="telefono">Teléfono</label>
+        <input id="telefono" type="text" pInputText formControlName="telefono" maxlength="10" />
+        <small *ngIf="clienteForm.get('telefono')?.invalid && clienteForm.get('telefono')?.touched" class="p-error">
+          El número debe comenzar con 0 y tener 10 dígitos.
+        </small>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="cedula">Cédula</label>
+        <input id="cedula" type="text" pInputText formControlName="cedula" maxlength="10" />
+        <small *ngIf="clienteForm.get('cedula')?.invalid && clienteForm.get('cedula')?.touched" class="p-error">
+          La cédula debe tener exactamente 10 dígitos.
+        </small>
+      </div>
+
+      <div class="p-field p-col-12">
+        <label for="direccion">Dirección</label>
+        <input id="direccion" type="text" pInputText formControlName="direccion" />
+      </div>
+
+      <div class="p-field p-col-12">
+        <label for="descripcion">Descripción del Problema</label>
+        <textarea id="descripcion" pInputTextarea pInputText rows="4" formControlName="descripcion"></textarea>
+      </div>
+
+      <div class="p-field p-col-12">
+        <button pButton type="submit" label="Guardar"></button>
+      </div>
+
+    </div>
+  </form>
+</div>
